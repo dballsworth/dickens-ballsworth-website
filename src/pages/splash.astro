@@ -1,0 +1,170 @@
+---
+import '../styles/variables.css';
+import '../styles/global.css';
+
+const pageTitle = "Dickens & Ballsworth";
+const pageDescription = "Links to all our social media, shows, and more!";
+const siteUrl = 'https://dickensandballsworth.com';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription}>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={pageTitle}>
+  <meta property="og:description" content={pageDescription}>
+  <meta property="og:image" content={`${siteUrl}/images/hero-main.jpg`}>
+  <meta property="og:url" content={`${siteUrl}/splash`}>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+</head>
+<body class="splash-body">
+  <main class="splash-container">
+    <div class="splash-content">
+      <h1 class="splash-title">Dickens & Ballsworth</h1>
+      <p class="splash-tagline">You KNOW you want to get with us...</p>
+
+      <nav class="splash-links">
+        <a href="https://www.instagram.com/dballsworth" class="splash-btn" target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/dickensandballsworth" class="splash-btn" target="_blank" rel="noopener noreferrer">
+          Facebook
+        </a>
+        <a href="/dates-and-shows" class="splash-btn">
+          Dates & Shows
+        </a>
+        <a href="/lets-talk" class="splash-btn">
+          Contact Us
+        </a>
+        <a href="https://www.venmo.com/u/edalessio" class="splash-btn" target="_blank" rel="noopener noreferrer">
+          Venmo Us
+        </a>
+      </nav>
+    </div>
+
+    <footer class="splash-footer">
+      <p>Copyright © 2026 Dickens & Ballsworth - All Rights Reserved</p>
+    </footer>
+  </main>
+</body>
+</html>
+
+<style>
+  .splash-body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+  }
+
+  .splash-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .splash-content {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .splash-title {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-black);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-md);
+  }
+
+  .splash-tagline {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--color-text-body);
+    margin: 0 0 var(--space-3xl);
+  }
+
+  .splash-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .splash-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-lg) var(--space-xl);
+    background-color: var(--color-brand-pink);
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: opacity var(--transition-fast);
+    text-align: center;
+  }
+
+  .splash-btn:hover {
+    opacity: 0.85;
+  }
+
+  .splash-footer {
+    margin-top: var(--space-3xl);
+    padding: var(--space-xl) 0;
+    text-align: center;
+    width: 100%;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-size: 0.875rem;
+  }
+
+  .splash-footer p {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .splash-title {
+      font-size: 2rem;
+    }
+
+    .splash-tagline {
+      font-size: 0.9rem;
+    }
+
+    .splash-btn {
+      padding: var(--space-md) var(--space-lg);
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .splash-title {
+      font-size: 1.75rem;
+    }
+
+    .splash-container {
+      padding: var(--space-xl) var(--space-md);
+    }
+  }
+</style>
