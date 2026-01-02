@@ -1,0 +1,63 @@
+:root {
+  /* Brand Colors */
+  --color-brand-pink: #DA4A8E;
+  --color-white: #FFFFFF;
+  --color-off-white: #F6F6F6;
+  --color-black: #000000;
+  --color-text: #000000;
+  --color-text-inverse: #FFFFFF;
+  --color-text-body: #5E5E5E;
+  --color-text-dark: #1B1B1B;
+
+  /* Typography */
+  --font-primary: 'Helvetica', 'Arial', sans-serif;
+  --font-heading: 'Archivo Black', arial, sans-serif;
+  --font-size-base: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.8;
+
+  /* Spacing Scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --content-padding: var(--space-md);
+  --section-spacing: var(--space-3xl);
+
+  /* Grid */
+  --gallery-columns: 3;
+  --gallery-gap: var(--space-md);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 2rem;
+    --font-size-2xl: 1.5rem;
+    --space-3xl: 3rem;
+    --gallery-columns: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gallery-columns: 1;
+    --content-padding: var(--space-sm);
+  }
+}

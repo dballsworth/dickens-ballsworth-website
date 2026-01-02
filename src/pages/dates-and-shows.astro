@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EventCard from '../components/EventCard.astro';
+import { fetchCalendarEvents } from '../utils/calendar';
+
+const pageTitle = "Dates & Shows";
+const pageDescription = "If you know you know. If not, c'mon out. Then you'll know.";
+
+// Fetch events at build time
+const events = await fetchCalendarEvents();
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="dates-section">
+    <div class="container" style="padding: var(--space-3xl) 0;">
+      <h1>Dates & Shows</h1>
+      <p class="tagline" style="font-size: var(--font-size-lg); margin-bottom: var(--space-2xl); font-style: italic;">
+        If you know you know. If not, c'mon out. Then you'll know.
+      </p>
+
+      {events.length > 0 ? (
+        <div class="events-list">
+          {events.map(event => <EventCard event={event} />)}
+        </div>
+      ) : (
+        <p>No upcoming shows scheduled. Check back soon!</p>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .events-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>

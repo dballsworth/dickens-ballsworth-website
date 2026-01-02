@@ -1,0 +1,21 @@
+---
+import socialLinksData from '../data/social.json';
+const socialLinks = socialLinksData.links;
+---
+
+<footer class="footer">
+  <div class="container">
+    <ul class="social-links">
+      {socialLinks.map(link => (
+        <li>
+          <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.platform}>
+            {link.platform}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p style="font-size: 0.875rem;">
+      Copyright © {new Date().getFullYear()} Dickens & Ballsworth - All Rights Reserved
+    </p>
+  </div>
+</footer>

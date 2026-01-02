@@ -1,0 +1,63 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="container header__container">
+    <a href="/" class="header__logo-link">
+      <img src="/images/logo.png" alt="Dickens & Ballsworth" class="header__logo" width="200" height="85">
+    </a>
+
+    <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <nav class="nav" id="main-nav">
+      <ul class="nav__list">
+        <li><a href="/" class="nav__link" aria-current={currentPath === '/' ? 'page' : undefined}>About D&B</a></li>
+        <li><a href="/dates-and-shows" class="nav__link" aria-current={currentPath === '/dates-and-shows' ? 'page' : undefined}>Dates & Shows</a></li>
+        <li><a href="/lets-talk" class="nav__link" aria-current={currentPath === '/lets-talk' ? 'page' : undefined}>Let's Talk</a></li>
+        <li><a href="https://dbgoods.bigcartel.com/" class="nav__link" target="_blank" rel="noopener noreferrer">D&B Store</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle functionality
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const nav = document.querySelector('#main-nav');
+
+  menuToggle?.addEventListener('click', () => {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    menuToggle.classList.toggle('active');
+    nav?.classList.toggle('active');
+
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isExpanded ? '' : 'hidden';
+  });
+
+  // Close menu when clicking a link
+  const navLinks = document.querySelectorAll('.nav__link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle?.classList.remove('active');
+      nav?.classList.remove('active');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!nav?.contains(e.target as Node) && !menuToggle?.contains(e.target as Node)) {
+      menuToggle?.classList.remove('active');
+      nav?.classList.remove('active');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+</script>

@@ -1,0 +1,178 @@
+---
+interface Props {
+  initialCount?: number;
+}
+
+const { initialCount = 16 } = Astro.props;
+
+// Generate array of gallery image numbers (1-70)
+const totalImages = 70;
+const initialImages = Array.from({ length: initialCount }, (_, i) => i + 1);
+
+function getImagePath(index: number): string {
+  const num = index.toString().padStart(3, '0');
+  // Check for PNG files (gallery-037, gallery-041, gallery-043, gallery-048, gallery-052, gallery-055, gallery-056, gallery-066)
+  const pngIndices = [37, 41, 43, 48, 52, 55, 56, 66];
+  const ext = pngIndices.includes(index) ? 'png' : 'jpg';
+  return `/images/gallery/gallery-${num}.${ext}`;
+}
+---
+
+<section class="gallery-section bg-off-white" style="padding: var(--space-3xl) 0;">
+  <div class="container">
+    <h2>Photo Gallery</h2>
+    <div class="gallery" id="gallery">
+      {initialImages.map((index) => (
+        <div class="gallery__item" data-index={index}>
+          <img
+            src={getImagePath(index)}
+            alt={`Dickens & Ballsworth performance ${index}`}
+            loading="lazy"
+            width="400"
+            height="300"
+            class="gallery__image"
+            data-index={index}
+          >
+        </div>
+      ))}
+    </div>
+    {totalImages > initialCount && (
+      <div style="text-align: center;">
+        <button class="btn" id="show-more-btn">Show More</button>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" aria-label="Close lightbox">&times;</button>
+  <button class="lightbox__prev" aria-label="Previous image">‹</button>
+  <button class="lightbox__next" aria-label="Next image">›</button>
+  <img class="lightbox__image" src="" alt="">
+  <div class="lightbox__counter"></div>
+</div>
+
+<script define:vars={{ totalImages, initialCount }}>
+  const btn = document.getElementById('show-more-btn');
+  const gallery = document.getElementById('gallery');
+  let currentCount = initialCount;
+
+  const pngIndices = [37, 41, 43, 48, 52, 55, 56, 66];
+
+  function getImagePath(index) {
+    const num = index.toString().padStart(3, '0');
+    const ext = pngIndices.includes(index) ? 'png' : 'jpg';
+    return `/images/gallery/gallery-${num}.${ext}`;
+  }
+
+  // Lightbox functionality
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = lightbox?.querySelector('.lightbox__image');
+  const lightboxCounter = lightbox?.querySelector('.lightbox__counter');
+  const closeBtn = lightbox?.querySelector('.lightbox__close');
+  const prevBtn = lightbox?.querySelector('.lightbox__prev');
+  const nextBtn = lightbox?.querySelector('.lightbox__next');
+
+  let currentImageIndex = 1;
+
+  function openLightbox(index) {
+    currentImageIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightboxImage() {
+    const imagePath = getImagePath(currentImageIndex);
+    lightboxImage.src = imagePath;
+    lightboxImage.alt = `Dickens & Ballsworth performance ${currentImageIndex}`;
+    lightboxCounter.textContent = `${currentImageIndex} / ${totalImages}`;
+  }
+
+  function showNextImage() {
+    currentImageIndex = currentImageIndex >= totalImages ? 1 : currentImageIndex + 1;
+    updateLightboxImage();
+  }
+
+  function showPrevImage() {
+    currentImageIndex = currentImageIndex <= 1 ? totalImages : currentImageIndex - 1;
+    updateLightboxImage();
+  }
+
+  // Add click handlers to gallery images
+  function addImageClickHandlers() {
+    const galleryImages = document.querySelectorAll('.gallery__image');
+    galleryImages.forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', (e) => {
+        const index = parseInt(e.target.dataset.index);
+        openLightbox(index);
+      });
+    });
+  }
+
+  // Initial setup
+  addImageClickHandlers();
+
+  // Close button
+  closeBtn?.addEventListener('click', closeLightbox);
+
+  // Navigation buttons
+  nextBtn?.addEventListener('click', showNextImage);
+  prevBtn?.addEventListener('click', showPrevImage);
+
+  // Click outside image to close
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') showNextImage();
+    if (e.key === 'ArrowLeft') showPrevImage();
+  });
+
+  // Show More button functionality
+  btn?.addEventListener('click', () => {
+    const remaining = totalImages - currentCount;
+    const toShow = Math.min(remaining, 20);
+
+    for (let i = currentCount; i < currentCount + toShow; i++) {
+      const div = document.createElement('div');
+      div.className = 'gallery__item';
+      div.dataset.index = i + 1;
+
+      const img = document.createElement('img');
+      img.src = getImagePath(i + 1);
+      img.alt = `Dickens & Ballsworth performance ${i + 1}`;
+      img.loading = 'lazy';
+      img.width = 400;
+      img.height = 300;
+      img.className = 'gallery__image';
+      img.dataset.index = i + 1;
+
+      div.appendChild(img);
+      gallery?.appendChild(div);
+    }
+
+    currentCount += toShow;
+
+    // Re-add click handlers to new images
+    addImageClickHandlers();
+
+    if (currentCount >= totalImages) {
+      btn.style.display = 'none';
+    }
+  });
+</script>

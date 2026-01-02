@@ -1,0 +1,28 @@
+---
+import type { CalendarEvent } from '../utils/types';
+
+interface Props {
+  event: CalendarEvent;
+}
+
+const { event } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": `Dickens & Ballsworth at ${event.venue}`,
+  "startDate": event.startDate,
+  "endDate": event.endDate,
+  "location": {
+    "@type": "Place",
+    "name": event.venue,
+    "address": event.address
+  },
+  "performer": {
+    "@type": "MusicGroup",
+    "name": "Dickens & Ballsworth"
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

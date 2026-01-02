@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "ical-expander": "^3.2.0",
+    "node-ical": "^0.22.1"
   }
 }
