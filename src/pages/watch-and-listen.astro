@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = "Watch & Listen";
+const pageDescription = "Live recordings from our shows and video performances from Dickens & Ballsworth.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section - Dark Background -->
+  <section class="listen-hero">
+    <div class="container">
+      <h1 class="listen-hero__title">GIVE US A LISTEN</h1>
+    </div>
+  </section>
+
+  <!-- SoundCloud Section -->
+  <section class="media-section media-section--dark">
+    <div class="container">
+      <h2 class="media-section__heading">Live recordings from our shows</h2>
+      <p class="media-section__tagline">Straight from the Dickens & Ballsworth vault to your ears</p>
+
+      <div class="media-embed">
+        <iframe
+          width="100%"
+          height="450"
+          scrolling="no"
+          frameborder="no"
+          allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1762565064&color=%23da4a8e&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vimeo Section - Prince Tribute -->
+  <section class="media-section media-section--light">
+    <div class="container">
+      <h2 class="media-section__heading">HIS ROYAL PURPLENESS</h2>
+      <p class="media-section__tagline">Recorded at The Grand Opera House, Wilmington, Delaware COVID-19 Livestream Fundraiser</p>
+
+      <div class="media-embed media-embed--video">
+        <iframe
+          src="https://player.vimeo.com/video/906416612?h=d8b6e8e8e8"
+          width="640"
+          height="360"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Greats Section -->
+  <section class="media-section media-section--light">
+    <div class="container">
+      <h2 class="media-section__heading">YES, WE LOVE THE GREATS</h2>
+      <p class="media-section__tagline">Imitation is the sincerest form of flattery. Right Mick?</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .listen-hero {
+    background-color: var(--color-black);
+    padding: var(--space-3xl) 0 var(--space-xl);
+    text-align: center;
+  }
+
+  .listen-hero__title {
+    font-family: var(--font-heading);
+    font-size: 2.375rem;
+    color: var(--color-brand-pink);
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .media-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .media-section--dark {
+    background-color: var(--color-black);
+  }
+
+  .media-section--light {
+    background-color: var(--color-white);
+  }
+
+  .media-section__heading {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    text-align: center;
+    margin-bottom: var(--space-md);
+    text-transform: none;
+  }
+
+  .media-section--dark .media-section__heading {
+    color: var(--color-white);
+  }
+
+  .media-section__tagline {
+    text-align: center;
+    color: var(--color-text-body);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+    font-style: italic;
+  }
+
+  .media-section--dark .media-section__tagline {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .media-embed {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .media-embed iframe {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .media-embed--video {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .media-embed--video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .listen-hero__title {
+      font-size: 2rem;
+    }
+
+    .media-section {
+      padding: var(--space-xl) 0;
+    }
+
+    .media-section__heading {
+      font-size: 1.25rem;
+    }
+
+    .media-section__tagline {
+      font-size: 1rem;
+      padding: 0 var(--space-md);
+    }
+
+    .media-embed {
+      padding: 0 var(--space-md);
+    }
+  }
+</style>
