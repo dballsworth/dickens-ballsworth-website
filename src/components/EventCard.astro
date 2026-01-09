@@ -10,9 +10,12 @@ const { event } = Astro.props;
 
 // Parse the date to extract day of week and formatted date
 const eventDate = new Date(event.startDate);
-const dayOfWeek = eventDate.toLocaleDateString('en-US', { weekday: 'short' });
-const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
-const day = eventDate.getDate();
+const dayOfWeek = eventDate.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' });
+const month = eventDate.toLocaleDateString('en-US', { month: 'short', timeZone: 'America/New_York' });
+
+// Get the day in EST timezone
+const estDate = new Date(eventDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+const day = estDate.getDate();
 
 // Format day with ordinal suffix (1st, 2nd, 3rd, etc.)
 const getOrdinalSuffix = (n: number) => {

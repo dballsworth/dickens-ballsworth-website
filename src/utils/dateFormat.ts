@@ -2,7 +2,8 @@ export function formatDate(date: Date): string {
   const options: Intl.DateTimeFormatOptions = {
     month: 'long',
     day: 'numeric',
-    weekday: 'long'
+    weekday: 'long',
+    timeZone: 'America/New_York'
   };
 
   const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
@@ -22,7 +23,8 @@ export function formatTimeRange(start: Date, end: Date): string {
     const options: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
+      timeZone: 'America/New_York'
     };
     return date.toLocaleTimeString('en-US', options);
   };

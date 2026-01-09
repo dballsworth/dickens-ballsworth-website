@@ -86,7 +86,7 @@ function processExpandedEvent(evt: any, eventDataMap: Map<string, any>): Calenda
       const eventData = eventDataMap.get(uid);
       location = eventData.location;
       summary = eventData.summary;
-      description = eventData.description;
+      description = stripGoogleMeetInfo(eventData.description);
     }
 
     const [venue, address] = parseVenueAndAddress(location, summary);
@@ -106,6 +106,25 @@ function processExpandedEvent(evt: any, eventDataMap: Map<string, any>): Calenda
     console.error('Error processing event:', error);
     return null;
   }
+}
+
+function stripGoogleMeetInfo(description: string): string {
+  if (!description) return '';
+
+  // Remove Google Meet links and related text
+  let cleaned = description
+    // Remove Google Meet URLs
+    .replace(/https?:\/\/meet\.google\.com\/[^\s]*/gi, '')
+    // Remove Google Meet support URLs
+    .replace(/https?:\/\/support\.google\.com\/[^\s]*/gi, '')
+    // Remove common Google Meet phrases
+    .replace(/join\s+with\s+google\s+meet:?/gi, '')
+    .replace(/learn\s+more\s+about\s+meet\s+at:?/gi, '')
+    // Clean up extra whitespace and line breaks
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return cleaned;
 }
 
 function parseVenueAndAddress(location: string, summary: string): [string, string] {
