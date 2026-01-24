@@ -5,7 +5,18 @@ import type { CalendarEvent } from './types';
 
 const CALENDAR_URL = 'https://calendar.google.com/calendar/ical/dickensandballsworth%40gmail.com/public/basic.ics';
 
+// In-memory cache for server-side rendering
+let cachedEvents: CalendarEvent[] | null = null;
+let cacheTime: number = 0;
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour in ms
+
 export async function fetchCalendarEvents(): Promise<CalendarEvent[]> {
+  // Return cached data if fresh
+  const now = Date.now();
+  if (cachedEvents && (now - cacheTime) < CACHE_TTL) {
+    return cachedEvents;
+  }
+
   try {
     // Parse with node-ical first to get the base event data (includes venue info)
     const parsedEvents = await ical.async.fromURL(CALENDAR_URL);
@@ -53,10 +64,15 @@ export async function fetchCalendarEvents(): Promise<CalendarEvent[]> {
       new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
     );
 
+    // Update cache
+    cachedEvents = calendarEvents;
+    cacheTime = Date.now();
+
     return calendarEvents;
   } catch (error) {
     console.error('Error fetching calendar:', error);
-    return [];
+    // Return stale cache if available, otherwise empty array
+    return cachedEvents || [];
   }
 }
 

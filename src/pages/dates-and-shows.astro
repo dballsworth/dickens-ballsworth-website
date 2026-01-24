@@ -1,4 +1,6 @@
 ---
+export const prerender = false;  // Server-render this page
+
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import { fetchCalendarEvents } from '../utils/calendar';
@@ -6,7 +8,7 @@ import { fetchCalendarEvents } from '../utils/calendar';
 const pageTitle = "Dates & Shows";
 const pageDescription = "If you know you know. If not, c'mon out. Then you'll know.";
 
-// Fetch events at build time
+// Fetch events on each request (with 1-hour cache)
 const events = await fetchCalendarEvents();
 ---
 
