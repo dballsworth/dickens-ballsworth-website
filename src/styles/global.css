@@ -9,6 +9,8 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #DA4A8E; /* Safari adaptive tab-bar + overscroll bounce color */
+  color-scheme: light; /* opt out of browser auto-dark mode */
 }
 
 body {
