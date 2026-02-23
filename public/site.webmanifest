@@ -1,0 +1,17 @@
+{
+  "name": "Dickens & Ballsworth",
+  "short_name": "D&B",
+  "description": "Dickens & Ballsworth – music, dates, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#DA4A8E",
+  "theme_color": "#DA4A8E",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
